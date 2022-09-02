@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 )
 
@@ -21,8 +22,9 @@ func sayhelloName(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", sayhelloName)       //設定存取的路由
-	err := http.ListenAndServe(":9090", nil) //設定監聽的埠
+	port := os.Getenv("PORT")
+	http.HandleFunc("/", sayhelloName)        //設定存取的路由
+	err := http.ListenAndServe(":"+port, nil) //設定監聽的埠
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
